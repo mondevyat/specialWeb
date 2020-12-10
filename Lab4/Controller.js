@@ -15,20 +15,14 @@ Controller.prototype.needRendering = function () {
 };
 
 Controller.prototype.clicking = function (e) {
-    for (var i = 0; i < this.minesweeperModel.objs.gameField.size; i++)
-    {
-        for (var j = 0; j < this.minesweeperModel.objs.gameField.size; j++)
-        {
-            idOfCell = document.getElementById(parseInt(i) + '' + parseInt(j));
-            idOfCell.addEventListener("mousedown",
-                        (event)=>{
-                            //console.log(event.path[0].id);
-                            this.minesweeperModel.clickCell(event.which, event.path[0].id);
-                        });
-        }
-    }
-
-    //this.minesweeperModel.clickCell(e);
+    canvas = document.querySelector(".canvas");
+    canvas.addEventListener("mousedown",
+            (event)=>{
+                var x = event.offsetX;
+                var y = event.offsetY;
+                console.log(x, y);
+                this.minesweeperModel.clickCell(event.which, x, y);
+            });
 };
 
 var minesweeperController = new Controller(minesweeperView, minesweeperModel);
