@@ -1,7 +1,7 @@
 var View = function() { 
     this.canvas = document.querySelector(".canvas");
-    this.canvas.setAttribute('width', GAME_FIELD_SIZE * 50);
-    this.canvas.setAttribute('height', GAME_FIELD_SIZE * 50);
+    this.canvas.setAttribute('width', GAME_FIELD_SIZE * GAME_SELL_SIZE);
+    this.canvas.setAttribute('height', GAME_FIELD_SIZE * GAME_SELL_SIZE);
     this.score = document.querySelector(".gameResult");
     this.context = this.canvas.getContext("2d");
     this.onClickEvent = null;
@@ -22,7 +22,7 @@ View.prototype.render = function(objs) {
     const numberSprite = new Image();
     numberSprite.src = "number.png";
 
-    const offsetX = offsetY = 48;
+    const offsetX = offsetY = GAME_SELL_SIZE - GAME_SELL_SIZE/25;
     console.log(objs.bombs);
     if (!objs.isMapCreated)
     {
@@ -50,9 +50,9 @@ View.prototype.render = function(objs) {
                 this.context.fillRect(posX, posY, offsetX, offsetY);
 
                 console.log(objs.mas[i][j]);
-                posX += 50;
+                posX += GAME_SELL_SIZE;
             }
-            posY += 50;
+            posY += GAME_SELL_SIZE;
         }
         objs.isMapCreated = true;
     }
@@ -70,6 +70,7 @@ View.prototype.render = function(objs) {
             else if (!objs.mas[i][j].isBomb && objs.mas[i][j].isChecked && !objs.isGameEnded)
             {
                 this.renderSprite(numberSprite, objs.mas[i][j].posX, objs.mas[i][j].posY);
+                this.context.fillStyle = 'red';
                 document.querySelector(".gameResult").innerHTML = 'СЧЁТ: ' + objs.score;
             }
             else if (objs.mas[i][j].isFlagged && !objs.isGameEnded)
@@ -87,48 +88,12 @@ View.prototype.render = function(objs) {
                 this.context.fillRect(objs.mas[i][j].posX, objs.mas[i][j].posY, objs.mas[i][j].offsetX, objs.mas[i][j].offsetY);
             }
         }
-    }
-
-
-    // this.context.fillRect(1, 1, 48, 48);
-    // this.context.fillRect(51, 1, 48, 48);
-    // this.context.fillRect(101, 1, 48, 48);
-    // this.context.fillRect(151, 1, 48, 48);
-    // this.context.fillRect(201, 1, 48, 48);
-    // this.context.fillRect(251, 1, 48, 48);
-    // this.context.fillRect(301, 1, 48, 48);
-    // this.context.fillRect(351, 1, 48, 48);
-    // this.context.fillRect(401, 1, 48, 48);
-    // this.context.fillRect(451, 1, 48, 48);
-
-    // this.context.fillRect(1, 51, 48, 48);
-    // this.context.fillRect(51, 51, 48, 48);
-    // this.context.fillRect(101, 51, 48, 48);
-    // this.context.fillRect(151, 51, 48, 48);
-    // this.context.fillRect(201, 51, 48, 48);
-    // this.context.fillRect(251, 51, 48, 48);
-    // this.context.fillRect(301, 51, 48, 48);
-    // this.context.fillRect(351, 51, 48, 48);
-    // this.context.fillRect(401, 51, 48, 48);
-    // this.context.fillRect(451, 51, 48, 48);
-
-    // this.context.fillRect(1, 101, 48, 48);
-    // this.context.fillRect(51, 101, 48, 48);
-    // this.context.fillRect(101, 101, 48, 48);
-    // this.context.fillRect(151, 101, 48, 48);
-    // this.context.fillRect(201, 101, 48, 48);
-    // this.context.fillRect(251, 101, 48, 48);
-    // this.context.fillRect(301, 101, 48, 48);
-    // this.context.fillRect(351, 101, 48, 48);
-    // this.context.fillRect(401, 101, 48, 48);
-    // this.context.fillRect(451, 101, 48, 48);
-
-   
+    }   
 }
 
 View.prototype.renderSprite = function (sprite, x, y) {
     this.context.save();
-    this.context.drawImage(sprite, x, y);
+    this.context.drawImage(sprite, x, y, GAME_SELL_SIZE, GAME_SELL_SIZE);
     this.context.restore();
 }
 
