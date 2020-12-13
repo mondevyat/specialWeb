@@ -25,7 +25,7 @@ var Model = function() {
 	};
 }
 
-Model.prototype.init = function(renderFunc) { // + положение в массиве, убрать x, y и if'ы
+Model.prototype.init = function(renderFunc) {
 	this.needRendering = renderFunc;
 	
 	for( var i = 0; i < GAME_FIELD_SIZE; i++ )
