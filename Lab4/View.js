@@ -5,11 +5,34 @@ var View = function() {
     this.score = document.querySelector(".gameResult");
     this.context = this.canvas.getContext("2d");
     this.onClickEvent = null;
+    this.arrayView = [];
+    for( var i = 0; i < GAME_FIELD_SIZE; i++ )
+         this.arrayView[i] = [{posX: 0, posY: 0, offsetX: 0, offsetY: 0}];
+
 };
 
 View.prototype.init = function() {
     document.addEventListener("keydown", this.onClickEvent);
 };
+
+View.prototype.leftClick = function(x, y) {
+    for (var i = 0; i < GAME_FIELD_SIZE; i++) 
+	{
+		for (var j = 0; j < GAME_FIELD_SIZE; j++)
+		{
+			if ( (x >= this.arrayView[i][j].posX && x <= this.arrayView[i][j].posX + this.arrayView[i][j].offsetX) &&
+				 (y >= this.arrayView[i][j].posY && y <= this.arrayView[i][j].posY + this.arrayView[i][j].offsetY))
+			{
+				return [i,j];
+			}
+			else if ( (x >= this.arrayView[i][j].posX && x <= this.arrayView[i][j].posX + this.arrayView[i][j].offsetX) &&
+				 	(y >= this.arrayView[i][j].posY && y <= this.arrayView[i][j].posY + this.arrayView[i][j].offsetY))
+			{
+				return [i,j];
+			}
+		}
+    }
+}
 
 View.prototype.render = function(objs) {
 
@@ -32,15 +55,8 @@ View.prototype.render = function(objs) {
             var posX = 1;
             for (var j = 0; j < GAME_FIELD_SIZE; j++)
             {
-                objs.mas[i][j] = {posX, posY, offsetX, offsetY, isBomb: false, isChecked : false, isFlagged: false};
-                for (var k = 0; k < objs.bombs.length; k++)
-                {
-                    if ( (objs.bombs[k].x >= posX && objs.bombs[k].x <= posX + offsetX) &&
-                         (objs.bombs[k].y >= posY && objs.bombs[k].y <= posY + offsetY))
-                    { 
-                        objs.mas[i][j].isBomb = true;
-                    }
-                }
+                this.arrayView[i][j] = {posX, posY, offsetX, offsetY};
+                
                 if (objs.mas[i][j].isBomb == true)
                 {
                     this.context.fillStyle = 'red';
@@ -70,7 +86,6 @@ View.prototype.render = function(objs) {
             else if (!objs.mas[i][j].isBomb && objs.mas[i][j].isChecked && !objs.isGameEnded)
             {
                 this.renderSprite(numberSprite, objs.mas[i][j].posX, objs.mas[i][j].posY);
-                this.context.fillStyle = 'red';
                 document.querySelector(".gameResult").innerHTML = 'СЧЁТ: ' + objs.score;
             }
             else if (objs.mas[i][j].isFlagged && !objs.isGameEnded)
