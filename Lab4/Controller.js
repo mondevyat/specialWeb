@@ -21,7 +21,8 @@ Controller.prototype.clicking = function (e) {
                 var x = event.offsetX;
                 var y = event.offsetY;
                 console.log(x, y);
-                this.minesweeperModel.clickCell(event.which, x, y);
+                let array = this.minesweeperView.leftClick(x, y);
+                this.minesweeperModel.clickCell(event.which, array[0], array[1]);
             });
 };
 
