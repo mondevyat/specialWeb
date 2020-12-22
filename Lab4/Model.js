@@ -1,17 +1,17 @@
 const GAME_FIELD_SIZE = 5;
-const GAME_SELL_SIZE = 100;
+const GAME_SELL_SIZE = 50;
 
 var Model = function() {
 	this.objs = {
 		bombs: [
 			{
-			   x: parseInt(Math.random() * (GAME_FIELD_SIZE) + 1),
-			   y: parseInt(Math.random() * (GAME_FIELD_SIZE) + 1),
+			   x: parseInt(Math.random() * (GAME_FIELD_SIZE)),
+			   y: parseInt(Math.random() * (GAME_FIELD_SIZE)),
 			   isExploded: false
 			},
 			{
-			   x: parseInt(Math.random() * (GAME_FIELD_SIZE) + 1),
-			   y: parseInt(Math.random() * (GAME_FIELD_SIZE) + 1),
+			   x: parseInt(Math.random() * (GAME_FIELD_SIZE)),
+			   y: parseInt(Math.random() * (GAME_FIELD_SIZE)),
 			   isExploded: false
 			},
 		],
