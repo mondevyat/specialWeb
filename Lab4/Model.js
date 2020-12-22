@@ -43,28 +43,6 @@ Model.prototype.init = function(renderFunc) {
 	}
 };
 
-Model.prototype.getBombs = function (obj) {
-    return {
-     bombs: obj.bombs
-    };
-};
-
-Model.prototype.setBombs = function(obj, x, y) {
-	for (var bomb in obj)
-	{
-		bomb.x = Math.random() * (9 - 0) + 0;
-		bomb.y = Math.random() * (9 - 0) + 0;
-	}
-	this.needRendering();
-};
-
-Model.prototype.getCoordinates = function (x, y)  {
-	return {
-		eventX: x,
-		eventY: y
-	}
-}
-
 Model.prototype.clickCell = function (e, i, j) { 
     switch (e) {
       case 1: {
