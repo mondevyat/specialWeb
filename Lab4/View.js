@@ -65,7 +65,7 @@ View.prototype.render = function(objs) {
 
                 this.context.fillRect(posX, posY, offsetX, offsetY);
 
-                console.log(objs.mas[i][j]);
+                console.log(this.arrayView[i][j]);
                 posX += GAME_SELL_SIZE;
             }
             posY += GAME_SELL_SIZE;
@@ -79,31 +79,31 @@ View.prototype.render = function(objs) {
         {
             if (objs.isGameEnded && objs.mas[i][j].isBomb)
             {
-                this.renderSprite(mineSprite, objs.mas[i][j].posX, objs.mas[i][j].posY);
+                this.renderSprite(mineSprite, this.arrayView[i][j].posX, this.arrayView[i][j].posY);
                 console.log("Проиграл");
                 document.querySelector(".gameResult").innerHTML = 'ВЫ ПРОИГРАЛИ!';
             }   
             else if (!objs.mas[i][j].isBomb && objs.mas[i][j].isChecked && !objs.isGameEnded)
             {
-                this.renderSprite(numberSprite, objs.mas[i][j].posX, objs.mas[i][j].posY);
+                this.renderSprite(numberSprite, this.arrayView[i][j].posX, this.arrayView[i][j].posY);
                 document.querySelector(".gameResult").innerHTML = 'СЧЁТ: ' + objs.score;
             }
             else if (objs.mas[i][j].isFlagged && !objs.isGameEnded)
             {
-                this.renderSprite(flagSprite, objs.mas[i][j].posX, objs.mas[i][j].posY);
+                this.renderSprite(flagSprite, this.arrayView[i][j].posX, this.arrayView[i][j].posY);
             }
             else if (!objs.mas[i][j].isFlagged && !objs.mas[i][j].isBomb && !objs.isGameEnded)
             {
                 this.context.fillStyle = 'lightgray';
-                this.context.fillRect(objs.mas[i][j].posX, objs.mas[i][j].posY, objs.mas[i][j].offsetX, objs.mas[i][j].offsetY);
+                this.context.fillRect(this.arrayView[i][j].posX, this.arrayView[i][j].posY, this.arrayView[i][j].offsetX, this.arrayView[i][j].offsetY);
             }
             else if (!objs.mas[i][j].isFlagged && objs.mas[i][j].isBomb && !objs.mas[i][j].isChecked && !objs.isGameEnded)
             {
                 this.context.fillStyle = 'red';
-                this.context.fillRect(objs.mas[i][j].posX, objs.mas[i][j].posY, objs.mas[i][j].offsetX, objs.mas[i][j].offsetY);
+                this.context.fillRect(this.arrayView[i][j].posX, this.arrayView[i][j].posY, this.arrayView[i][j].offsetX, this.arrayView[i][j].offsetY);
             }
         }
-    }   
+    }
 }
 
 View.prototype.renderSprite = function (sprite, x, y) {
